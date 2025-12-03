@@ -13,8 +13,6 @@ ranges.each do |range|
   (min..max).each do |n|
     digits = n.digits.reverse
     increment = 1
-
-    invalid = false
     
     while increment <= digits.length / 2
       if digits.length % increment == 0
@@ -23,15 +21,13 @@ ranges.each do |range|
         repeated = block * (digits.length / increment)
 
         if repeated == digits
-          invalid = true
+          id_count += n
           break
         end
       end
 
       increment += 1
     end
-
-    id_count += n if invalid
   end
 end
 
