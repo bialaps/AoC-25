@@ -17,4 +17,39 @@ class Day6
     end
     total
   end
+  def self.part2 
+    lines = File.readlines(File.join(__dir__, "input.txt"))
+    lines = lines.map(&:chomp)
+
+    max_width = lines.map(&:length).max
+    grid = lines.map { |l| l.ljust(max_width).chars }
+
+    columns = grid.transpose
+    
+    groups = []
+    group = []
+
+    columns.each do |column|
+      if column.all? {|c| c == " "}
+        groups << group
+        group = []
+        next
+      end
+    group << column
+    end
+
+    groups << group
+    total = 0 
+
+    groups.each do |group|
+      op = group[0].last
+
+      numbers = group.map do |problem|
+        problem.pop
+        problem.join.strip
+      end 
+      total += eval(numbers.join(op))
+    end
+    total
+  end
 end
